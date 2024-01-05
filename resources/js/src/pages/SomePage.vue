@@ -1,16 +1,35 @@
 <template>
-  <h1>Some page</h1>
+  <h1>Counter: {{ counter }}</h1>
+  <button class="btn btn-success"
+          @click="increment"
+  >
+    Increment
+  </button>
 </template>
 
 <script lang='ts'>
-import {defineComponent} from 'vue'
+import { defineComponent, computed } from 'vue'
+import { useStore } from "vuex";
 
 export default defineComponent({
   name: "SomePage",
 
   components: {},
   setup() {
-    return {};
+    const store = useStore();
+
+    const counter = computed(() => {
+      return store.state.count;
+    });
+
+    const increment = () => {
+      store.commit('increment')
+    }
+
+    return {
+      counter,
+      increment
+    };
   }
 })
 </script>
